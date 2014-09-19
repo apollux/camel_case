@@ -1,0 +1,37 @@
+import camel_case as cc
+import nose.tools as nt
+
+def test_underscore_to_camel_case():
+    result = cc.underscore_to_camel_case("some_test_data")
+    assert "someTestData" == result
+
+
+def test_sequential_underscores():
+    result = cc.underscore_to_camel_case("some__test_____data")
+    assert "someTestData" == result
+
+
+def test_keep_upper_case():
+    result = cc.underscore_to_camel_case("output_HTML_view",
+                                         keep_upper_case=True)
+    assert "outputHTMLView" == result
+
+
+def test_ends_with_underscore():
+    result = cc.underscore_to_camel_case("test_data_")
+    assert "testData" == result
+
+
+def test_starts_with_underscore():
+    result = cc.underscore_to_camel_case("_hello_world")
+    nt.eq_("helloWorld", result)
+
+
+def test_lower_case_no_underscores():
+    result = cc.underscore_to_camel_case("test")
+    assert "test" == result
+
+
+def test_start_capital():
+    result = cc.underscore_to_camel_case("test", start_with_capital=True)
+    nt.eq_("Test", result)
