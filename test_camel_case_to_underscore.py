@@ -1,0 +1,1 @@
+import camel_case as ccimport nose.tools as ntdef test_all_lower():    result = cc.camel_case_to_underscore("test")    nt.eq_("test", result)def test_camel_case_to_underscore():    result = cc.camel_case_to_underscore("helloWorld")    nt.eq_("hello_world", result)
