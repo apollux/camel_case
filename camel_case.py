@@ -25,11 +25,30 @@ def underscore_to_camel_case(data, start_with_capital=False,
 
 def camel_case_to_underscore(data):
     result = ""
-    for c in data:
+    previous_was_capital = False
+    consecutive_capitals = False
+
+    for i, c in enumerate(data):
         if c.isupper():
-            result += '_'
+            if previous_was_capital:
+                consecutive_capitals = True
+            else:
+                if i != 0:
+                    result += '_'
+
+            if consecutive_capitals:
+                try:
+                    if data[i + 1].islower():
+                        result += '_'
+                except IndexError:
+                    pass
             result += c.lower()
+
+            previous_was_capital = True
         else:
             result += c
+
+            previous_was_capital = False
+            consecutive_capitals = False
     return result
 
